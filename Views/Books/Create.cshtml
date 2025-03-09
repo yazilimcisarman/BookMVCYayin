@@ -41,25 +41,56 @@
 
 </form>
 
+<script src="~/template/vendor/jquery/jquery.min.js" ></script>
 <script>
     $(document).ready(function () {
+
+        //ust kategorileri getiren fonksiyon
         $.ajax({
-            url: '/Order/GetCity',
+            url: '/Categories/GetUstKategori',
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                console.log(data.data);
-                var cityDropdown = $('#city');
-                cityDropdown.empty();
-                cityDropdown.append('<option selected value="0">Şehir Seçiniz.</option>'); // Varsayılan seçenek
-                $.each(data.data, function (index, city) {
-                    console.log(index, city);
-                    cityDropdown.append($('<option value="' + city.cityId + '">' + city.cityname + '</option>'));
+                var ustKategoriDropdown = $('#ustKategori');
+                ustKategoriDropdown.empty();
+                ustKategoriDropdown.append('<option selected value="0">Ust Kategori Seciniz.</option>');
+                $.each(data.data, function (index, category) {
+                    ustKategoriDropdown.append($('<option value="' + category.Id + '">' + category.name + '</option>'));
                 });
             },
             error: function (xhr, status, error) {
-                console.log('Şehirler yüklenirken bir hata oluştu: ' + error);
+                console.log('Kategoriler yüklenirken bir hata oluştu: ' + error);
             }
         });
+
+        //ust kategoriye gore alt kategori getiren fonksiyon
+
+        $('#city').change(function () {
+            var cityId = $(this).val();
+            console.log(cityId);
+            if (cityId != "0") {
+                $.ajax({
+                    url: '/Order/GetTownByCityId?cityId=' + cityId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        var townDropdown = $('#town');
+                        townDropdown.empty();
+                        townDropdown.append('<option selected value="0">İlçe Seçiniz.</option>');
+                        $.each(data.data, function (index, town) {
+                            townDropdown.append($('<option></option>').attr('value', town.townId).text(town.townname));
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('İlçeler yüklenirken bir hata oluştu: ' + error);
+                    }
+                });
+            } else {
+                $('#town').empty();
+                $('#town').append('<option selected value="0">İlçe Seçiniz.</option>');
+            }
+        });
+
     });
 </script>

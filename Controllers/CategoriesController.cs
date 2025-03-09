@@ -36,5 +36,11 @@ namespace BookMVCYayin.Controllers
             return Json(new { status = true,data=ustCategories});
         }
 
+        public IActionResult GetAltKategori(int categoryId)
+        {
+            var altKategori = _context.Categories.Where(x => x.UstKategori == categoryId).ToList();
+            return Json(new {status = true, data=altKategori});
+        }
+
     }
 }
