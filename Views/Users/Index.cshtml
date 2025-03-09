@@ -1,0 +1,35 @@
+﻿
+@model List<User>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Kullanicilarimiz</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Adi</th>
+                        <th>Soyadi</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Surname</td>
+                            <td>@item.Email</td>
+                            <td>@item.Phone</td>
+                        </tr>
+                    }
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
