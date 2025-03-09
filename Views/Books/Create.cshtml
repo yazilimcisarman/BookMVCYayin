@@ -22,9 +22,44 @@
                placeholder="Kategori Id Giriniz...">
     </div>
 
+    <div class="form-group">
+        <select class="custom-select" id="ustKategori">
+           <option value=""> Ust Kategori Seciniz.</option>
+       </select>
+    </div>
+
+    <div class="form-group">
+        <select class="custom-select" id="altKategori" name="category">
+            <option value=""> Alt Kategori Seciniz.</option>
+        </select>
+    </div>
+
     <hr>
     <button type="submit" class="btn btn-primary btn-user btn-block">
         KAYDET
     </button>
 
 </form>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Order/GetCity',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data.data);
+                var cityDropdown = $('#city');
+                cityDropdown.empty();
+                cityDropdown.append('<option selected value="0">Şehir Seçiniz.</option>'); // Varsayılan seçenek
+                $.each(data.data, function (index, city) {
+                    console.log(index, city);
+                    cityDropdown.append($('<option value="' + city.cityId + '">' + city.cityname + '</option>'));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log('Şehirler yüklenirken bir hata oluştu: ' + error);
+            }
+        });
+    });
+</script>

@@ -29,5 +29,12 @@ namespace BookMVCYayin.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public IActionResult GetUstKategori()
+        {
+            var ustCategories = _context.Categories.Where(x => x.UstKategori == 0).ToList();
+            return Json(new { status = true,data=ustCategories});
+        }
+
     }
 }
