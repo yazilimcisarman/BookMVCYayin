@@ -1,3 +1,8 @@
+!!!!!!!!!!!!!!!!!!!!!!!!ilgili veritabninizi secmeyi unutmayiniz !!!!!!!!!!!!!!!!!!!!!!!
+veritabninizda tablonuzu runcate yapmayi unutmayin 
+
+truncate table Categories
+
 INSERT INTO Categories (Name, UstKategori) VALUES
 ('Roman', 0),
 ('Polisiye', 1),
