@@ -1,3 +1,4 @@
+!!!!!!!!!!!!!!!!!!!!!!!!ilgili veritabninizi secmeyi unutmayiniz !!!!!!!!!!!!!!!!!!!!!!!
 veritabninizda tablonuzu runcate yapmayi unutmayin 
 
 truncate table Categories
