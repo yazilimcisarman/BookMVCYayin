@@ -55,9 +55,14 @@
             success: function (data) {
                 var ustKategoriDropdown = $('#ustKategori');
                 ustKategoriDropdown.empty();
-                ustKategoriDropdown.append('<option selected value="0">Ust Kategori Seciniz.</option>');
+                ustKategoriDropdown.append('<option value="0">Ust Kategori Seciniz.</option>');
                 $.each(data.data, function (index, category) {
-                    ustKategoriDropdown.append($('<option value="' + category.id + '">' + category.name + '</option>'));
+                    if (@ViewBag.Kategori == category.id) {
+                        ustKategoriDropdown.append($('<option selected value="' + category.id + '">' + category.name + '</option>'));
+                    } else {
+                        ustKategoriDropdown.append($('<option value="' + category.id + '">' + category.name + '</option>'));
+                    }
+                    
                 });
             },
             error: function (xhr, status, error) {
@@ -81,7 +86,7 @@
                         altKategoriDropdown.empty();
                         altKategoriDropdown.append('<option selected value="0">Alt Kategori Seçiniz.</option>');
                         $.each(data.data, function (index, altkategori) {
-                            altKategoriDropdown.append($('<option></option>').attr('value', altkategori.id).text(altkategori.name));
+                                altKategoriDropdown.append($('<option></option>').attr('value', altkategori.id).text(altkategori.name));
                         });
                     },
                     error: function (xhr, status, error) {
@@ -91,6 +96,28 @@
             } else {
                 $('#altKategori').empty();
                 $('#altKategori').append('<option selected value="0">Alt Kategori Seçiniz.</option>');
+            }
+        });
+
+        $.ajax({
+            url: '/Categories/GetAltKategori?categoryId=' + @ViewBag.Kategori,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var altKategoriDropdown = $('#altKategori');
+                altKategoriDropdown.empty();
+                altKategoriDropdown.append('<option value="0">Alt Kategori Seciniz.</option>');
+                $.each(data.data, function (index, category) {
+                    if (@Model.KategoriId == category.id) {
+                        altKategoriDropdown.append($('<option selected value="' + category.id + '">' + category.name + '</option>'));
+                    } else {
+                        altKategoriDropdown.append($('<option value="' + category.id + '">' + category.name + '</option>'));
+                    }
+
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log('Kategoriler yüklenirken bir hata oluştu: ' + error);
             }
         });
 

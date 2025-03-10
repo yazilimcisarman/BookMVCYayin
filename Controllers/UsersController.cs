@@ -25,6 +25,10 @@ namespace BookMVCYayin.Controllers
         [HttpPost]
         public IActionResult Create(User model)
         {
+            if (model.Name ==null || model.Email==null || model.Surname ==null || model.Phone ==null)
+            {
+                return View(model);
+            }
             _context.Users.Add(model);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -42,15 +46,28 @@ namespace BookMVCYayin.Controllers
         [HttpPost]
         public IActionResult Update(User model)
         {
-            var vUser = _context.Users.Find(model.Id);
-            vUser.Name = model.Name;
-            vUser.Surname = model.Surname;
-            vUser.Email = model.Email;
-            vUser.Phone = model.Phone;
-            _context.Users.Update(vUser);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var vUser = _context.Users.Find(model.Id);
+                vUser.Name = model.Name;
+                vUser.Surname = model.Surname;
+                vUser.Email = model.Email;
+                vUser.Phone = model.Phone;
+                _context.Users.Update(vUser);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(model);
+            }
+            
 
+        }
+        public IActionResult GetUsersCount()
+        {
+            var users = _context.Users.Count();
+            return Json(new {status=true,data=users});
         }
 
     }

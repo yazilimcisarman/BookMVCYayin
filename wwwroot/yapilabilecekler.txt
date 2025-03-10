@@ -1,0 +1,10 @@
+﻿
+--identity ekleyerek bir kullanici giris yapabiliriz
+
+--kullanici profil sayfasi giris cikislari gorur, sifre degistirme yapabilir
+
+--ana sayfa ya daha cok kisayol tuslari atanabilir
+
+--search aram kisminda kitap aramasi yapilabilir
+
+--kitaplar sayfasindan direkt olarak kitap kiralama islemi yapilabilir

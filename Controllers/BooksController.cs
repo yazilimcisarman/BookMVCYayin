@@ -38,6 +38,12 @@ namespace BookMVCYayin.Controllers
         public IActionResult Update(int bookId)
         {
             var book = _context.Books.Find(bookId);
+            book.Kategori = _context.Categories.Where(x => x.Id == book.KategoriId).FirstOrDefault();
+            //book.Kategori.UstKategori
+            var bookcategory = book.Kategori.UstKategori;
+            var category = _context.Categories.Where(x => x.Id == bookcategory).FirstOrDefault();
+            ViewBag.Kategori = category.Id;
+            //ViewBag.AltKategori = book.KategoriId;
             return View(book);
         }
         [HttpPost]

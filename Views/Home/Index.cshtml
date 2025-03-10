@@ -2,7 +2,77 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center" style="margin-bottom:20px;">
+    <a class="btn btn-primary btn-user btn-block" href="/RentedBooks/Create"> Kitap Kirala</a>
 </div>
+
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Kiralanmis Kitap Sayisi
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="kiralanankitapsayisi">0</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Kullanici sayisi
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="kullanicisayisi">0</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/template/vendor/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '/RentedBooks/GetCountByRentedBooks',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                if(data.status){
+                    document.getElementById('kiralanankitapsayisi').innerText = data.data;
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('1ajax methodunda hata  bir hata oluştu: ' + error);
+            }
+        });
+        $.ajax({
+            url: '/Users/GetUsersCount',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status) {
+                    document.getElementById('kullanicisayisi').innerText = response.data;
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('2ajax methodunda hata  bir hata oluştu: ' + error);
+            }
+        });
+
+    });
+</script>

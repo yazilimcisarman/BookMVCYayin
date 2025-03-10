@@ -27,7 +27,8 @@
                             <td>@item.Email</td>
                             <td>@item.Phone</td>
                             <td>
-                                <a href="/Users/Update?userId=@item.Id"> Guncelle</a>
+                                <a href="/Users/Update?userId=@item.Id"> <i class="fas fa-flag"></i></a>
+                                <a href="/RentedBooks/Index?userId=@item.Id"> <i class="fas fa-fw fa-folder" style="color:red"></i></a>
                             </td>
                         </tr>
                     }
