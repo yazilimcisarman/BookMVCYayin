@@ -1,0 +1,60 @@
+﻿
+
+<form class="user" method="post" action="/RentedBooks/Create">
+    <div class="form-group">
+        <select class="custom-select" id="userId" name="userId">
+            <option value=""> Kullanici Seciniz.</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <select class="custom-select" id="bookId" name="bookId">
+            <option value=""> Kitap Seciniz.</option>
+        </select>
+    </div>
+
+    <hr>
+    <button type="submit" class="btn btn-primary btn-user btn-block">
+        KAYDET
+    </button>
+
+</form>
+
+<script src="~/template/vendor/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '/Users/GetUsers',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var userDropdown = $('#userId');
+                userDropdown.empty();
+                userDropdown.append('<option selected value="0">Kullanici Seciniz.</option>');
+                $.each(data.data, function (index, user) {
+                    userDropdown.append($('<option value="' + user.id + '">' + user.name + ' ' + user.surname + '</option>'));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log('Kullanicilar yüklenirken bir hata oluştu: ' + error);
+            }
+        });
+
+        $.ajax({
+            url: '/Books/GetBooks',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var bookDropdown = $('#bookId');
+                bookDropdown.empty();
+                bookDropdown.append('<option selected value="0">Kitap Seciniz.</option>');
+                $.each(data.data, function (index, book) {
+                    bookDropdown.append($('<option value="' + book.id + '">' + book.title +'</option>'));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log('Kitaplar yüklenirken bir hata oluştu: ' + error);
+            }
+        });
+    });
+</script>

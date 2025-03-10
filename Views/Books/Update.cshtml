@@ -1,31 +1,33 @@
 ﻿
+@model Book
 
-<form class="user" method="post" action="/Books/Create">
+<form class="user" method="post" action="/Books/Update">
+    <input type="hidden" name="id" value="@Model.Id" />
     <div class="form-group">
         <input type="text" class="form-control form-control-user"
                id="title" name="title"
-               placeholder="Kitabin Basligini Giriniz...">
+               placeholder="Kitabin Basligini Giriniz..." value="@Model.Title">
     </div>
     <div class="form-group">
         <input type="text" class="form-control form-control-user"
                id="author" name="author"
-               placeholder="Yazarin Adini Giriniz...">
+               placeholder="Yazarin Adini Giriniz..." value="@Model.Author">
     </div>
     <div class="form-group">
         <input type="number" class="form-control form-control-user"
                id="stock" name="stock"
-               placeholder="Stogu Giriniz...">
+               placeholder="Stogu Giriniz..." value="@Model.Stock">
     </div>
-@*     <div class="form-group">
-        <input type="number" class="form-control form-control-user"
-               id="kategoriId" name="kategoriId"
-               placeholder="Kategori Id Giriniz...">
+    @*     <div class="form-group">
+    <input type="number" class="form-control form-control-user"
+    id="kategoriId" name="kategoriId"
+    placeholder="Kategori Id Giriniz...">
     </div> *@
 
     <div class="form-group">
         <select class="custom-select" id="ustKategori">
-           <option value=""> Ust Kategori Seciniz.</option>
-       </select>
+            <option value=""> Ust Kategori Seciniz.</option>
+        </select>
     </div>
 
     <div class="form-group">
@@ -41,7 +43,7 @@
 
 </form>
 
-<script src="~/template/vendor/jquery/jquery.min.js" ></script>
+<script src="~/template/vendor/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
 

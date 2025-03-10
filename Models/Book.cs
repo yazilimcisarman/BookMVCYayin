@@ -7,6 +7,7 @@
         public string Author { get; set; }
         public int Stock { get; set; }
         public int KategoriId { get; set; }
+        public Category Kategori { get; set; }
 
     }
 }

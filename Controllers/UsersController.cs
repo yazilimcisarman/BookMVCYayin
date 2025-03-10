@@ -29,6 +29,29 @@ namespace BookMVCYayin.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult GetUsers()
+        {
+            var users = _context.Users.ToList();
+            return Json(new {status=true,data=users});
+        }
+        public IActionResult Update(int userId)
+        {
+            var user = _context.Users.Find(userId);
+            return View(user);
+        }
+        [HttpPost]
+        public IActionResult Update(User model)
+        {
+            var vUser = _context.Users.Find(model.Id);
+            vUser.Name = model.Name;
+            vUser.Surname = model.Surname;
+            vUser.Email = model.Email;
+            vUser.Phone = model.Phone;
+            _context.Users.Update(vUser);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
 
     }
 }
